@@ -1,0 +1,75 @@
+{{!-- nav bar --}}
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand logo" href="/">
+    <img src="/images/playlistLogo.png" alt="logo" height="50px" loading="lazy">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/create">Create Playlist</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/browse">Browse Playlists</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{{!-- begin container --}}
+<div class="container">
+  <div id="createSection">
+    <div class="row createStyle">
+      <div class="col">
+        <h2 class="createHeader">Create New Playlist</h2>
+        {{!-- start form --}}
+        <form class="formSubmit">
+          <div class="form-group">
+            <label for="exampleFormControlInput1" class="formInputs">Playlist Name</label>
+            <input type="text" id="playlistName" class="form-control playlistName" placeholder="Name your playlist"
+              required>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1" class="formInputs">Created By:</label>
+            <input type="text" id="createdBy" class="form-control createdBy" placeholder="Your name here" required>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlSelect1" class="formInputs">Choose Your Mood</label>
+            <select class="form-control mood" id="mood" required>
+              <option>Coffee House</option>
+              <option>Party Time</option>
+              <option>Chill Mode</option>
+              <option>Workout</option>
+              <option>Date Night</option>
+              <option>I Want To Rock</option>
+              <option>Hip Hop</option>
+              <option>Country Roads</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1" class="formInputs">Description of Playlist</label>
+            <input type="text" id="description" class="form-control description" placeholder="Add a brief description"
+              required>
+          </div>
+          <div id='TextBoxesGroup' class="form-group">
+            <div class="input_fields_wrap">
+              <div class="form-group">
+                <label for="exampleFormControlInput1" class="formInputs">Song Title and Artist Name:</label>
+                <input type="text" class="form-control song1" id="song1" placeholder="Song Title" required>
+                <input type="text" class="form-control artist1" id="artist1"  placeholder="Artist Name"
+                  required>
+              </div>
+              {{!-- button to add another song via addsong.js --}}
+              <button class="add_field_button">Add Another Song</button>
+            </div>
+          </div>
+          <button type="submit" id="createPlaylist" class="btn btn-info">Create Playlist!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

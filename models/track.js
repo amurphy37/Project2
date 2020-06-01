@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    var track = sequelize.define("track", {
+    var Track = sequelize.define("Track", {
         // Giving the track model a name of type STRING
         name: {
             type: DataTypes.STRING,
@@ -7,34 +7,28 @@ module.exports = function (sequelize, DataTypes) {
             validate: {
                 len: [1, 30]
             }
+        }, 
+        youTubeVidId: {
+            type: DataTypes.STRING,
+            
         }
     });
 
-    track.associate = function (models) {
+    Track.associate = function (models) {
         // Associating track to a genre
-        track.belongsTo(models.Genre, {
+        Track.belongsTo(models.Genre, {
             foreignKey: {
                 allowNull: false
             }
         });
-    };
-
-    track.associate = function (models) {
-        // Associating track to album in a many-to-one relationship
-        track.belongsTo(models.Album, {
+    //     // Associating track to album in a many-to-one relationship
+        Track.belongsTo(models.Album, {
             foreignKey: {
                 allowNull: false
             }
         });
-    };
-
-    track.associate = function (models) {
         // Associating track to playlistTrack 
-        track.belongsTo(models.playlistTrack, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
+        Track.hasMany(models.PlaylistTrack);
     };
-    return Playlist;
+    return Track;
 };

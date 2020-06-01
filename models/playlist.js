@@ -1,40 +1,39 @@
 module.exports = function (sequelize, DataTypes) {
-    var playlist = sequelize.define("playlist", {
+    var Playlist = sequelize.define("Playlist", {
         // Giving the playlist model a name of type STRING
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1, 30]
-                }
+            allowNull: false
             },
             voteCount: {
                 type: DataTypes.INTEGER,
                 allowNull: true,
-                validate: {
-                    len: [1, 500]
-                },
                 defaultValue: 0
+            },
+            createdBy: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            description: {
+                type: DataTypes.STRING,
+                allowNull: false
             },
             pageViews: {
                 type: DataTypes.INTEGER,
                 allowNull: true,
-                validate: {
-                    len: [1, 50000]
-                },
                 defaultValue: 0
             }
         });
 
-            playlist.associate = function (models) {
+            Playlist.associate = function (models) {
                 // Associating Playlist with moodID
                 // Foreign Key used to link the moodID
-                playlist.belongsTo(models.Mood, {
+                Playlist.belongsTo(models.Mood, {
                     foreignKey: {
                         allowNull: false
                     }
                 });
             }
      
-    return playlist;
+    return Playlist;
 };

@@ -1,0 +1,88 @@
+ {{!-- nav bar --}}
+ <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand logo" href="/">
+      <img src="images/playlistLogo.png" alt="logo" height="50px" loading="lazy">
+    </a>    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/create">Create Playlist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/browse">Browse Playlists</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  {{!-- start container --}}
+      <div class="container">
+        {{!-- jumbotron section --}}
+          <div id="jumboHome">
+        <div class="row jumboRow">
+          <div class="col">
+            <div class="homeMain">
+                <h1 class="display-4 homeDisplay">Create.  Listen.  Rank.</h1>
+                <p class="lead homeLead">Welcome to Next Track Up - A community driven playlist app.  Create and share your very own playlists that can be ranked by your community of friends. Start here by either creating a playlist or browsing through our always expanding library of content.</p>
+                <hr class="my-4">
+                <a class="btn btn-primary btn-lg btnSpace" id="createBtn" href="/create" role="button">Create Playlist</a>
+                <a class="btn btn-danger btn-lg btnSpace" href="/browse" role="button">Browse Playlists</a>
+              </div>
+            </div>
+        </div>
+    </div>   
+    <div id="createSection">
+      <div class="row createStyle">
+        {{!-- examples of targeted advertisement revenue --}}
+        <div class="col-3">
+          <img src="images\youtubeAd.png" alt="" class="img-fluid">
+          <img src="images\sonosAd.png" alt="" class="img-fluid adMargins">
+          <img src="images\appleAd.jpg" alt="" class="img-fluid adMargins">
+
+         </div>
+        <div class="col-9">
+          <h2 class="createHeader">Create New Playlist</h2>
+          {{!-- start create playlist form --}}
+          <form class="formSubmit">
+            <div class="form-group">
+              <label for="exampleFormControlInput1" class="formInputs">Playlist Name</label>
+              <input type="text" id="playlistName" class="form-control playlistName" placeholder="Name your playlist" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1" class="formInputs">Created By:</label>
+              <input type="text" id="createdBy" class="form-control createdBy" placeholder="Your name here" required>
+            </div>
+          
+            <div class="form-group">
+              <label for="exampleFormControlSelect1" class="formInputs">Choose Your Mood</label>
+              <select class="form-control mood" id="mood" required>
+                <option>Coffee House</option>
+                <option>Party Time</option>
+                <option>Chill Mode</option>
+                <option>Workout</option>
+                <option>Date Night</option>
+                <option>I Want To Rock</option>
+                <option>Hip Hop</option>
+                <option>Country Roads</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1" class="formInputs">Description of Playlist</label>
+              <input type="text" id="description" class="form-control description" placeholder="Add a brief description" required>
+            </div>
+            <div id='TextBoxesGroup' class="form-group">
+              <div class="input_fields_wrap">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1" class="formInputs">Song Title and Artist Name:</label>
+                  <input type="text" class="form-control song1" id="song1" placeholder="Song Title" required>
+                  <input type="text" class="form-control artist1" id="artist1" placeholder="Artist Name" required>
+                </div>
+            <button type="submit" class="btn btn-info">Create Playlist!</button>
+            <i class="fas fa-caret-square-up"></i> 
+      </div>
+    </div>   
+    
+        </div>
+        </div>

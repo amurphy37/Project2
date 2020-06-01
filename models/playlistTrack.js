@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    var playlistTrack = sequelize.define("playlistTrack", {
+    var PlaylistTrack = sequelize.define("PlaylistTrack", {
         // Giving the playlistTrack model a name of type STRING
         voteCount: {
             type: DataTypes.INTEGER,
@@ -12,14 +12,20 @@ module.exports = function (sequelize, DataTypes) {
 
     });
 
-        playlistTrack.associate = function (models) {
+        PlaylistTrack.associate = function (models) {
             // Associating playlist track with playlist
-            playlistTrack.belongsTo(models.playlist, {
+            PlaylistTrack.belongsTo(models.Playlist, {
+                foreignKey: {
+                    allowNull: false
+                }
+            });
+
+            PlaylistTrack.belongsTo(models.Track, {
                 foreignKey: {
                     allowNull: false
                 }
             });
         };
     
-    return playlistTrack;
+    return PlaylistTrack;
 };

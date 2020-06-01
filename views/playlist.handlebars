@@ -1,0 +1,140 @@
+{{!-- nav bar --}}
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand logo" href="/">
+    <img src="images/playlistLogo.png" alt="logo" height="50px" loading="lazy">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/create">Create Playlist</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/browse">Browse Playlists</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <div class="row playListRow">
+    <!-- ADD{{each playlist}} -->
+    <div class=col-1></div>
+    <div class=col-10>
+      <div class="card mb-3" style="max-width: 100%;">
+        <div class="row no-gutters">
+          <div class="col-1 iconSet">
+            <a class="btn" href="#"><i class="fa fa-arrow-circle-up fa-4x icon-stack-base rankIconsPlus"
+                id="playlistPlusBtn"></i></a>
+            <div class="counter" id="counter">
+              <!-- ADD {{playlist count}} -->
+            </div>
+            <a class="btn" href="#"><i class="fa fa-arrow-circle-down fa-4x icon-stack-base rankIconsMinus"
+                id="playlistMinusBtn"></i></a>
+          </div>
+          <div class="col-md-11">
+            <div class="card-body">
+              <!-- ADD handlebars for playlist items -->
+              <h5 class="card-title">Playlist Name:</h5>
+              <ul>
+                <li>
+                  Created by: {{}}
+                </li>
+                <li>
+                  Mood: {{}}
+                </li>
+                <li>
+                  Description: {{}}
+                </li>
+              </ul>
+              <button class="btn btn-secondary" id="showTracksBtn">See Track List +</button>
+              <button class="btn btn-secondary hide" id="hideTracksBtn">Hide Track List -</button>
+              <button class="btn btn-info" id="addNewTrackBtn">Add New Track to Playlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=col-1></div>
+  </div>
+  <div class="row hide" id="newTrackForm">
+    <div class=col-1></div>
+    <div class=col-10>
+      <div id='TextBoxesGroup' class="form-group">
+        <div class="input_fields_wrap">
+          <div class="form-group">
+            <label for="exampleFormControlInput1" class="formInputs">Song Title and Artist Name:</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Song Title" required>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Artist Name" required>
+          </div>
+          <button class="add_field_button">Add Another Song</button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-info">Add Songs to Playlist</button>
+      <button type="submit" class="btn btn-danger" id="returnPlaylistBtn">Don't Make Changes</button>
+    </div>
+    <div class=col-1></div>
+  </div>
+  <div class="row hide tracks" id="trackList">
+    <!-- ADD {{each track}} -->
+    <div class=col-1></div>
+    <div class=col-10>
+      <div class="card mb-3 trackCard" style="max-width: 100%;">
+        <div class="row no-gutters">
+          <div class="col-1 iconSet">
+            <a href="#"><i class="fa fa-arrow-circle-up fa-2x rankTracksPlus" id="trackPlusBtn"></i></a>
+            <a href="#"><i class="fa fa-arrow-circle-down fa-2x rankTracksMinus" id="trackMinusBtn"></i></a>
+            <div class="trackCounter" id="trackCounter">
+              <!-- ADD {{track count}} -->
+            </div>
+
+          </div>
+          <div class="col-1">
+            <div class="albumArt">
+              <!-- ADD {{insert 60px album art url here}} -->
+            </div>
+          </div>
+          <div class="col-md-10">
+            <div class="card-body">
+              <ul id="menu">
+                <!-- ADD handlebars for track items -->
+                <li>
+                  Track Name: {{}}
+                </li>
+                <li>
+                  Artist Name: {{}}
+                </li>
+                <li>
+                  Album: {{}}
+                </li>
+                <li>
+                  Genre: {{}}
+                </li>
+
+                <li>
+                  <a href="#"><i class="fab fa-youtube fa-2x youTubeIcon" id=youTubeBtn></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=col-1></div>
+  </div>
+  <!-- End for each loop -->
+  <!-- {{/each}} -->
+  <div class="row hide" id="youTubePlayer">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <div class="videoSection" id="player"></div>
+      <div>
+        <button class="btn btn-danger btn-sm" id="closeYouTubeBtn">Close Window</button>
+      </div>
+    </div>
+    <div class="col-1"></div>
+  </div>
+
+</div>
