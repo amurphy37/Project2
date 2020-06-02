@@ -136,9 +136,9 @@
                   <div class="input_fields_wrap">
                     <div class="form-group">
                       <label for="exampleFormControlInput1" class="formInputs">Song Title and Artist Name:</label>
-                      <input type="text" class="form-control" id="songTitle" placeholder="Song Title"
+                      <input type="text" class="form-control"  placeholder="Song Title"
                         required>
-                      <input type="text" class="form-control" id="artistName" placeholder="Artist Name"
+                      <input type="text" class="form-control" placeholder="Artist Name"
                         required>
                     </div>
                     <button class="add_field_button">Add Another Song</button>
@@ -166,7 +166,7 @@
                     <div class="col-1">
                       <div class="albumArt">
                         <!-- ADD insert 60px album art url here -->
-                        <img id="artImg" src={{art}} alt="song artwork">
+                        <img id="artImg" src={{this.art}} alt="song artwork">
                       </div>
                     </div>
                     <div class="col-md-10">
@@ -174,16 +174,16 @@
                         <ul id="menu">
                           <!-- ADD handlebars for track items -->
                           <li>
-                            Track Name: {{track}}
+                            Track Name: {{this.track}}
                           </li>
                           <li>
-                            Artist Name: {{artist}}
+                            Artist Name: {{this.artist}}
                           </li>
                           <li>
-                            Album: {{album}}
+                            Album: {{this.album}}
                           </li>
                           <li>
-                            Genre: {{genre}}
+                            Genre: {{this.genre}}
                           </li>
 
                           <li>
@@ -202,7 +202,7 @@
               <div class="col-10">
                 <div class="videoSection" id="player"></div>
                 <iframe id="ytplayer" type="text/html" width="640" height="360"
-                  src="https://www.youtube.com/embed/{{youtubeId}}?autoplay=1&origin=http://example.com" frameborder="0"></iframe>
+                  src="https://www.youtube.com/embed/{{this.youtubeId}}?autoplay=1&origin=http://example.com" frameborder="0"></iframe>
                 <div>
                   <button class="btn btn-danger btn-sm" id="closeYouTubeBtn">Close Window</button>
                 </div>
@@ -221,7 +221,7 @@
         <h3 class="browseHeader">Search by Creators</h3>
         <div class="input-group mb-3 creatorSearch">
           <input type="text" class="form-control" placeholder="Creator's Name" aria-label="Recipient's username"
-            aria-describedby="button-addon2" id="search">
+            aria-describedby="button-addon2">
           <div class="input-group-append">
             <button class="btn btn-info" type="button" id="button-addon2">Search</button>
           </div>

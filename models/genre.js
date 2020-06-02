@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
         // Giving genre id as primary key and name as string
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             validate: {
                 len: [1, 30]
             }

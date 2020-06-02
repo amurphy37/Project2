@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     // CREATE PLAYLIST AND CREATE PLAYLIST TRACK
 
-   $("form").submit(function () {
+   $(".formSubmit").submit(function () {
     event.preventDefault()
 
        var playlistName = $("#playlistName").val()
@@ -108,7 +108,39 @@ $(document).ready(function () {
 
     createPlaylist(playlistData)
 
+    $("#addSongForm").submit(function () {
+        var tracks = []
+
+        var serializedArr = $(this).serializeArray()
+        var trackArr = []
+        var artistArr = []
+
+        for (i = 0; i < serializedArr.length; i++) {
+            if (serializedArr[i].name === "songTitleField") {
+                trackArr.push(serializedArr[i].value)
+            }
+
+            else {
+                artistArr.push(serializedArr[i].value)
+            }
+        }
+
+        for (i = 0; i < trackArr.length; i++) {
+            var trackObj = {
+                track: trackArr[i],
+                artist: artistArr[i]
+            }
+
+            tracks.unshift(trackObj)
+        }
+
+        console.log(tracks)
+
+    })
+
    })
+
+
 
 //    VOTING SYSTEM WILL BE VERSION TWO OF APP
 

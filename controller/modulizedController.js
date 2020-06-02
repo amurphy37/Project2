@@ -6,6 +6,8 @@ var yt = require("./youtubeQueryURL")
 var youtubeAxios = require("./youtubeAxiosQuery")
 var itunes = require("./itunesAxios")
 
+// Function to ensure that all string values have capitalized first letters and the rest lowercase.
+
 function capitalizeFirstLetters(string) {
     var lcStr = string.toLowerCase()
     var firstCapWords
@@ -25,13 +27,19 @@ router.get("/", function (req, res) {
     res.redirect("/playlist");
 });
 
+// home route 
+
 router.get("/playlist", function (req, res) {
     res.render("index")
 })
 
+// Get route for playlist create screen
 router.get("/create", function (req, res) {
     res.render("create")
 })
+
+
+// Get route for browse screen
 
 router.get("/browse", async function (req, res){
     try {
@@ -363,6 +371,7 @@ try {
             id: playlistArr[i].id,
             name: playlistArr[i].name,
             voteCount: playlistArr[i].voteCount,
+            description: playlistArr[i].description,
             createdBy: playlistArr[i].createdBy,
             Mood: playlistArr[i].Mood,
             playlistTracks: newTrackArr 
@@ -379,8 +388,6 @@ try {
     var hbObj = {
         playlists: newPlaylistArr
     }
-
-    console.log(hbObj)
     
     return res.render("browse", hbObj)
 
@@ -419,6 +426,7 @@ router.post("/api/playlistTrack/create", function (req, res) {
         if (verTrackObj) {
 
             youtubeAxios.query(yt.youtubeQueryURL(verTrackObj), verTrackObj).then(async (trackObject) => {
+                console.log(trackObject)
 
                 try {
 
@@ -445,10 +453,8 @@ router.post("/api/playlistTrack/create", function (req, res) {
                         name: trackObject.track,
                         AlbumId: newAlbum[0].id,
                         GenreId: newGenre[0].id,
-                        youTubeVidId: trackObject.youtubeVidId,
-                        artworkUrl30: trackObject.artworkUrl30, 
-                        artworkUrl60: trackObject.artworkUrl60, 
-                        artworkUrl100: trackObject.artworkUrl100 
+                        youTubeVidId: trackObject.vidId,
+                        artworkUrl60: trackObject.artworkUrl60
                     })
 
                     
