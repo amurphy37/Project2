@@ -1,154 +1,130 @@
 //button functions for on click hide and add class for content areas
 
 $(document).ready(function () {
-    $("#moodBtn").click(function () {
-        $("#top-five").addClass("hide");
+
+    function searchByMoodView() {
+        $("#playlistContainer").addClass("hide");
+        $("#top-five").addClass("hide")
         $("#creators").addClass("hide");
-        $("#all").addClass("hide");
+        $("#allHeader").addClass("hide");
         $("#moods").removeClass("hide");
-    }),
-    
-    $("#creatorBtn").click(function () {
+
+    }
+
+    $("#moodBtn").click(function () {
+        searchByMoodView()
+    })
+
+    function searchByCreatorView () {
+        $("#playlistContainer").addClass("hide");
         $("#top-five").addClass("hide");
         $("#moods").addClass("hide");
-        $("#all").addClass("hide");
+        $("#allHeader").addClass("hide");
         $("#creators").removeClass("hide");
-    }),
+
+    }
+
+    $("#creatorBtn").click(function () {
+        searchByCreatorView()
+    })
+
+    
+
+    function getTopFivePlaylist () {
+
+        $.get("/topFive", function (response) {
+            $("body").html(response);
+            $("#playlistContainer").removeClass("hide")
+            $("#top-five").removeClass("hide");
+            $("#moods").addClass("hide");
+            $("#allHeader").addClass("hide");
+            $("#creators").addClass("hide");
+
+        })
+
+    }
 
     $("#trendingBtn").click(function () {
-        $("#top-five").removeClass("hide");
-        $("#moods").addClass("hide");
-        $("#all").addClass("hide");
-        $("#creators").addClass("hide");
-    }),
-
-    $("#allBtn").click(function () {
-        $("#top-five").addClass("hide");
-        $("#moods").addClass("hide");
-        $("#all").removeClass("hide");
-        $("#creators").addClass("hide");
-
-        $.get("/allPlaylists", function (data) {
-            console.log(data)
-        })
-    }),
-
-    $("#coffeeBtn").click(function () {
-        $("#partyTime").addClass("hide");
-        $("#chillMode").addClass("hide");
-        $("#workout").addClass("hide");
-        $("#dateNight").addClass("hide");
-        $("#rock").addClass("hide");
-        $("#hipHop").addClass("hide");
-        $("#countryRoad").addClass("hide");
-        $("#coffeeHouse").removeClass("hide");
-
-        $.get("/playlists/mood/coffee+house", function (response) {
-            console.log(response)
-        })
-    })
-
-    $("#partyBtn").click(function () {
-        $("#partyTime").removeClass("hide");
-        $("#chillMode").addClass("hide");
-        $("#workout").addClass("hide");
-        $("#dateNight").addClass("hide");
-        $("#rock").addClass("hide");
-        $("#hipHop").addClass("hide");
-        $("#countryRoad").addClass("hide");
-        $("#coffeeHouse").addClass("hide");
-
-        $.get("/playlists/mood/party+time", function (response) {
-            console.log(response)
-        })
-    })
-    $("#chillBtn").click(function () {
-        $("#partyTime").addClass("hide");
-        $("#chillMode").removeClass("hide");
-        $("#workout").addClass("hide");
-        $("#dateNight").addClass("hide");
-        $("#rock").addClass("hide");
-        $("#hipHop").addClass("hide");
-        $("#countryRoad").addClass("hide");
-        $("#coffeeHouse").addClass("hide");
-
-        $.get("/playlists/mood/chill+mode", function (response) {
-            console.log(response)
-        })
-    })
-    $("#workoutBtn").click(function () {
-        $("#partyTime").addClass("hide");
-        $("#chillMode").addClass("hide");
-        $("#workout").removeClass("hide");
-        $("#dateNight").addClass("hide");
-        $("#rock").addClass("hide");
-        $("#hipHop").addClass("hide");
-        $("#countryRoad").addClass("hide");
-        $("#coffeeHouse").addClass("hide");
-
-        $.get("/playlists/mood/workout", function (response) {
-            console.log(response)
-        })
-    })
-    $("#dateBtn").click(function () {
-        $("#partyTime").addClass("hide");
-        $("#chillMode").addClass("hide");
-        $("#workout").addClass("hide");
-        $("#dateNight").removeClass("hide");
-        $("#rock").addClass("hide");
-        $("#hipHop").addClass("hide");
-        $("#countryRoad").addClass("hide");
-        $("#coffeeHouse").addClass("hide");
-
-        $.get("/playlists/mood/date+night", function (response) {
-            console.log(response)
-        })
-    })
-    $("#rockBtn").click(function () {
-        $("#partyTime").addClass("hide");
-        $("#chillMode").addClass("hide");
-        $("#workout").addClass("hide");
-        $("#dateNight").addClass("hide");
-        $("#rock").removeClass("hide");
-        $("#hipHop").addClass("hide");
-        $("#countryRoad").addClass("hide");
-        $("#coffeeHouse").addClass("hide");
-
-        $.get("/playlists/mood/rock", function (response) {
-            console.log(response)
-        })
-    })
-    $("#hipHopBtn").click(function () {
-        $("#partyTime").addClass("hide");
-        $("#chillMode").addClass("hide");
-        $("#workout").addClass("hide");
-        $("#dateNight").addClass("hide");
-        $("#rock").addClass("hide");
-        $("#hipHop").removeClass("hide");
-        $("#countryRoad").addClass("hide");
-        $("#coffeeHouse").addClass("hide");
-
-        console.log("test")
-
-        $.get("/playlists/mood/hip+hop", function (response) {
-            console.log(response)
-        })
-    })
-    $("#countryBtn").click(function () {
-        $("#partyTime").addClass("hide");
-        $("#chillMode").addClass("hide");
-        $("#workout").addClass("hide");
-        $("#dateNight").addClass("hide");
-        $("#rock").addClass("hide");
-        $("#hipHop").addClass("hide");
-        $("#countryRoad").removeClass("hide");
-        $("#coffeeHouse").addClass("hide");
-
-        $.get("/playlists/mood/country+roads", function (response) {
-            console.log(response)
-        })
+        getTopFivePlaylist()
     })
 
 
 
+    function getAllPlaylists() {
+        $.get("/allPlaylists", function (response) {
+            $("body").html(response);
+            $("#playlistContainer").removeClass("hide")
+            $("#top-five").addClass("hide");
+            $("#moods").addClass("hide");
+            $("#allHeader").removeClass("hide");
+            $("#creators").addClass("hide");
+
+        })
+
+    }
+
+    $("#allBtn").click( function () {
+        getAllPlaylists()
+    })
+
+    function searchByMood(value) {
+        var genre = value.toLowerCase()
+        var routeParam = genre.split(" ").join("+")
+        
+        $.get("/playlists/mood/" + routeParam, function(response){
+            $("body").html(response)
+            $("#playlistContainer").removeClass("hide");
+            $("#top-five").addClass("hide");
+            $("#moods").removeClass("hide");
+            $("#creators").addClass("hide");
+            $("#allHeader").addClass("hide");
+        })
+    }
+    
+    $(".moodBtns").click(function () {
+        searchByMood(this.value)
+    })
+    
+    function searchByCreator () {
+        var creator = $("#search").val().trim()
+        var lcCreator = creator.toLowerCase()
+        var routeParam = lcCreator.split(" ").join("+")
+
+        $.get("/playlists/creator/" + routeParam, function(response){
+            $("body").html(response)
+            $("#playlistContainer").removeClass("hide");
+            $("#top-five").addClass("hide");
+            $("#moods").addClass("hide");
+            $("#creators").removeClass("hide");
+            $("#allHeader").addClass("hide");
+
+        })
+        
+    }
+
+    $("#button-addon2").click(function () {
+        searchByCreator()
+    })
+
+
+    function getPlaylistTracks (id) {
+
+
+        $.get("/playlistTracks/" + id, function (response){
+           console.log(response)
+           $("body").html(response)
+           $("#trackList").removeClass("hide")
+
+        })
+    }
+
+    $(".showTracksBtn").click(function () {
+        var id = $(this).attr("value")
+        getPlaylistTracks(id)
+
+    })
+
+    
+
+   
 })

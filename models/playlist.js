@@ -1,7 +1,7 @@
 module.exports = function (sequelize, DataTypes) {
     var Playlist = sequelize.define("Playlist", {
         // Giving the playlist model a name of type STRING
-        name: {
+            name: {
             type: DataTypes.STRING,
             allowNull: false
             },

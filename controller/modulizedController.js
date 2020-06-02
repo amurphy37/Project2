@@ -6,6 +6,20 @@ var yt = require("./youtubeQueryURL")
 var youtubeAxios = require("./youtubeAxiosQuery")
 var itunes = require("./itunesAxios")
 
+function capitalizeFirstLetters(string) {
+    var lcStr = string.toLowerCase()
+    var firstCapWords
+    var wordArr = lcStr.split(" ")
+    var newWordArr = []
+    for (i = 0; i < wordArr.length; i++) {
+        var firstChar = wordArr[i].charAt(0).toUpperCase()
+        var word = firstChar + wordArr[i].substring(1)
+        newWordArr.push(word)
+    }
+
+    firstCapWords = newWordArr.join(' ')
+    return firstCapWords
+}
 // router for Playlist (get,post,put,delete)
 router.get("/", function (req, res) {
     res.redirect("/playlist");
@@ -19,31 +33,88 @@ router.get("/create", function (req, res) {
     res.render("create")
 })
 
+router.get("/browse", async function (req, res){
+    try {
+        const playlistQuery = await db.Playlist.findAll({
+            include: [db.Mood],
+            order: [
+                ["voteCount", "DESC"]
+            ],
+            limit: 5
+        })
+        
+        
+        var Playlists = []
+        for (i = 0; i < playlistQuery.length; i++) {
+                Playlists.push(playlistQuery[i].dataValues)
+            }
+
+            var hbObj = {
+                playlists: Playlists
+            }
+            return res.render("browse", hbObj)
+       
+    }
+    catch {
+        res.status(500)
+        console.log("error")
+    }
+   
+})
+
 // GET TOP 5 PlAYLISTS
 
-router.get("/browse", function (req, res) {
-    db.Playlist.findAll({
+router.get("/topFive", async function (req, res) {
+    try {
+    const playlistQuery = await db.Playlist.findAll({
         include: db.Mood,
         order: [
             ["voteCount", "DESC"]
         ],
         limit: 5 
-    }).then(function (playlistData) {
-        res.render("browse", {playlistData : playlistData});
     })
+        var Playlists = []
+        for (i = 0; i < playlistQuery.length; i++) {
+            Playlists.push(playlistQuery[i].dataValues)
+        }
+
+        var hbObj = {
+            playlists: Playlists
+        }
+        return res.render("browse", hbObj)
+    }
+    catch {
+        res.status(500)
+        console.log("error")
+    }
 });
 
 // GET ALL PLAYLISTS ROUTES
 
-router.get("/allPlaylists", function (req, res){
-    db.Playlist.findAll({}).then(function (playlistData) {
-        res.json(playlistData)
-    })
+router.get("/allPlaylists", async function (req, res){
+    try {
+        const playlistQuery = await db.Playlist.findAll({})
+        var Playlists = []
+        for (i = 0; i < playlistQuery.length; i++) {
+            Playlists.push(playlistQuery[i].dataValues)
+        }
+
+        var hbObj = {
+            playlists: Playlists
+        }
+        return res.render("browse", hbObj)
+    }
+
+    catch {
+        res.status(500)
+        console.log("error")
+    }
 })
 
 // GET PLAYLIST BY MOOD
 
-router.get("/playlists/mood/:name", function (req, res) {
+router.get("/playlists/mood/:name", async function (req, res) {
+try {
     var mood;
 
     if(req.params.name.includes("+")===true) {
@@ -57,53 +128,275 @@ router.get("/playlists/mood/:name", function (req, res) {
 
         mood = newMoodArr.join(' ')
         
-        
-        // moodArr.join(' ')
-        // console.log(moodArr)
-        
     }
 
     else {
        
         var firstChar = req.params.name.charAt(0).toUpperCase()
-        mood = firstChar + mood.substring(1)
+        mood = firstChar + req.params.name.substring(1)
     }
-
-    console.log(mood)
     
     
-    db.Mood.findOne({
-       where: {
-           name: mood
-       }
-    }).then(function (dbMood) { 
+    const moodQuery = await db.Mood.findOne({
+                        where: {
+                            name: mood
+                                }
+                        })
 
-        var MoodId = dbMood.dataValues.id
+    const attributes = ["id", "name", "createdBy", "description", "pageViews", "voteCount", "Mood.id"];
       
-        db.Playlist.findAll({
+    const playlistQuery = await db.Playlist.findAll({
             where: {
-            MoodId: MoodId,
+            MoodId: moodQuery.dataValues.id
+            },
+            attributes: attributes,
+            include: [db.Mood],
             order: [
                 ["name", "ASC"]
             ]
+    })
+        var Playlists = []
+        for (i=0; i<playlistQuery.length; i++) {
+            Playlists.push(playlistQuery[i].dataValues)
         }
-    }).then(function(moodPlaylists){
-            console.log(moodPlaylists[0])
-            res.json(moodPlaylists)
+
+         var hbObj = {
+             playlists: Playlists
+         }
+
+           return res.render("browse", hbObj)
+    }
+
+catch {
+    res.status(500)
+    console.log("error")
+    }
+
+});
+
+// GET PLAYLIST BY CREATOR
+
+router.get("/playlists/creator/:name", async function (req, res){
+    try {
+        var creator;
+
+        if (req.params.name.includes("+") === true) {
+            var creatorArr = req.params.name.split("+")
+            var newCreatorArr = []
+            for (i = 0; i < creatorArr.length; i++) {
+                var firstChar = creatorArr[i].charAt(0).toUpperCase()
+                var word = firstChar + creatorArr[i].substring(1)
+                newCreatorArr.push(word)
+            }
+
+            creator = newCreatorArr.join(' ')
+
+        }
+
+        else {
+
+            var firstChar = req.params.name.charAt(0).toUpperCase()
+            creator = firstChar + req.params.name.substring(1)
+        }
+        
+         const playlistQuery = await db.Playlist.findAll({
+            where: {
+                createdBy: creator
+            },
+            include: [db.Mood]
+        })
+            var Playlists = []
+            for (i = 0; i < playlistQuery.length; i++) {
+                Playlists.push(playlistQuery[i].dataValues)
+            }
+
+            var hbObj = {
+                playlists: Playlists
+            }
+            return res.render("browse", hbObj)
+
+    }
+
+    catch {
+        res.status(500)
+        console.log("error")
+    }  
+    
+})
+
+// GET PLAYLIST TRACKS
+
+router.get("/playlistTracks/:id", async function (req, res) {
+try {
+     const playlistTracks = await db.PlaylistTrack.findAll({
+            include: [
+                {
+                 model: db.Playlist,
+                    where: {
+                        id: req.params.id
+                    },
+                    include: [db.Mood]
+                },
+                {
+                model: db.Track,
+                    include: [
+                        {
+                            model: db.Album,
+                            include: [db.Artist]
+                        },
+                        db.Genre
+                    ]
+             }
+            ]
         })
 
-    })
+    var playlistTracksArr = [] 
+    for (i = 0; i < playlistTracks.length; i++) {
+       playlistTracksArr.push(playlistTracks[i].dataValues)
+    }
 
+    var playlistArr = []
+    playlistArr.push(playlistTracks[0].dataValues.Playlist.dataValues)
+
+    function getGenre(track) {
+        
+        const genre = track
+
+        const {
+            dataValues: {
+                Genre: {
+                    dataValues: {
+                        name
+                    },
+                },
+            },
+        } = genre
+        
+        genreName = name
+    } 
+
+    function getAlbum(track) {
+    
+    const album = track
+
+        const {
+            dataValues: {
+                Album: {
+                    dataValues: {
+                        title
+                    },
+                },
+            },
+        } = album
+
+        albumName = title
+    }
+
+    function getArtist(track) {
+        const artist = track
+
+        const {
+            dataValues: {
+                Album: {
+                    dataValues: {
+                        Artist: {
+                            dataValues: {
+                                name
+                            },
+                        },
+                    },
+                },
+            },
+        } = artist
+
+        artistName = name
+    } 
+
+    function getTrack(track) {
+        const Track = track
+
+        const {
+            dataValues: {
+                name, artworkUrl60, youTubeVidId
+            },
+        } = Track
+
+        trackName = name;
+        artwork = artworkUrl60;
+        youtubeVidId = youTubeVidId
+    }
+
+    var newTrackArr = []
+    
+    for (i=0; i<playlistTracksArr.length; i++) {
+        var track = playlistTracksArr[i].Track
+        var genreName;
+        var albumName;
+        var artistName;
+        var trackName;
+        var voteCount = playlistTracksArr[i].voteCount
+        var artwork;
+        var youtubeVidId;
+
+        getGenre(track)
+        getAlbum(track)
+        getArtist(track)
+        getTrack(track)
+
+        var playlistTracksObj = {
+            genre: genreName,
+            album: albumName,
+            artist: artistName,
+            track: trackName,
+            votes: voteCount,
+            art: artwork,
+            youtubeId: youtubeVidId
+        }
+
+        newTrackArr.push(playlistTracksObj)
+    }
+
+    
+    newPlaylistArr = []
+    for (i=0; i<playlistArr.length; i++) {
+        var newPlaylistObj = {
+            id: playlistArr[i].id,
+            name: playlistArr[i].name,
+            voteCount: playlistArr[i].voteCount,
+            createdBy: playlistArr[i].createdBy,
+            Mood: playlistArr[i].Mood,
+            playlistTracks: newTrackArr 
+        }
+
+        newPlaylistArr.push(newPlaylistObj)
+
+    }
+
+    
+
+
+
+    var hbObj = {
+        playlists: newPlaylistArr
+    }
+
+    console.log(hbObj)
+    
+    return res.render("browse", hbObj)
+
+}
+catch {
+
+    }
 })
 
 
-// CREATE PLAYLIST TRACK ROUTE
 
+// CREATE PLAYLIST TRACK ROUTE
 router.post("/api/playlistTrack/create", function (req, res) {
-    console.log(req.body)
     var artistValue = req.body.artistName
     var songValue = req.body.trackName
-    var PlaylistId = req.body.playlistId
+    var plistId = req.body.playlistId
 
     axios.get(itunes.query(req)).then(function (axiosResponse) {
         var verTrackObj
@@ -152,20 +445,28 @@ router.post("/api/playlistTrack/create", function (req, res) {
                         name: trackObject.track,
                         AlbumId: newAlbum[0].id,
                         GenreId: newGenre[0].id,
-                        youTubeVidId: trackObject.youtubeVidId
+                        youTubeVidId: trackObject.youtubeVidId,
+                        artworkUrl30: trackObject.artworkUrl30, 
+                        artworkUrl60: trackObject.artworkUrl60, 
+                        artworkUrl100: trackObject.artworkUrl100 
                     })
+
+                    
 
                     const newPlaylistTrack = await db.PlaylistTrack.create({
                         TrackId: newTrack.id,
-                        PlaylistId: PlaylistId
+                        PlaylistId: plistId
                     })
 
-                    // res.json(200)
-                    // res.render("index", { newPlaylistTrack })
+                    res.status(200)
+                    res.end()
+
+                    return newPlaylistTrack
 
                 }
 
                 catch {
+                    res.status(500)
                     console.log("error")
                 }
 
@@ -174,13 +475,17 @@ router.post("/api/playlistTrack/create", function (req, res) {
         }
 
         else {
+
+            
+
+            res.status(500)
+            
             // Determine route to send user when they've entered incorrect/not valid song.
-            console.log("Song not found. Please search a valid song.")
+            console.log("Song not found. Please go to playlist and add a valid song.")
         }
 
-    });
 
-    res.json(200)
+    });
 });
 
 // // Get error message page
@@ -194,24 +499,41 @@ router.post("/api/playlistTrack/create", function (req, res) {
 // CREATE PLAYLIST ROUTE
 
 router.post("/api/playlist/create", async function (req, res) {
-    console.log(req.body)
+    const newBodyObj = {}
+
+    Object.defineProperty(newBodyObj, 'property1', {
+        value: 42,
+        writable: false
+    })
+
+    var p = req.body
+
+    for (var key in p){
+        if (p.hasOwnProperty(key) && typeof p[key]==="string") {
+            var newValue = capitalizeFirstLetters(p[key])
+            Object.defineProperty(newBodyObj, key, {
+                value: newValue
+            })
+        }
+    }
+
 
     try {
         const newMood = await db.Mood.findOrCreate({
             where: {
-                name: req.body.moodName
+                name: newBodyObj.moodName
             }
         });
 
 
         const newPlaylist = await db.Playlist.create({
-            name: req.body.playlistName,
-            createdBy: req.body.createdBy,
-            description: req.body.description,
+            name: newBodyObj.playlistName,
+            createdBy: newBodyObj.createdBy,
+            description: newBodyObj.description,
             MoodId: newMood[0].id
         });
 
-        res.json(newPlaylist)
+        res.json({newPlaylist})
 
 
     }
@@ -220,18 +542,21 @@ router.post("/api/playlist/create", async function (req, res) {
         console.log("error")
     }
 
+   
+
 });
 
 // ADD VOTE COUNT FOR SONG
 
 router.put("api/playlist/songVote", function (req, res) {
-    db.Track.update()
+    console.log(req.body)
+
+    res.end()
+    // db.PlaylistTrack.update({
+    //     voteCount: 
+    // })
 })
 
 // ADD VOTE COUNT FOR PLAYLIST
-
-// GET PLAYLISTS BY MOOD
-
-router.get("api/playlist/mood")
 
 module.exports = router;

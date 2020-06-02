@@ -122,8 +122,7 @@ ul {
 
 ul#menu li {
     list-style-type: none;    
-    padding: none;
-    display:inline;
+    padding-left: 10px;
     
   }
 
@@ -170,4 +169,9 @@ color: rgb(2, 189, 189)
 .albumArt {
     height:60px;
     width:60px;
+}
+
+#artImg {
+    margin: auto;
+    padding-top: 35px
 }

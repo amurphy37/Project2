@@ -11,7 +11,17 @@ module.exports = function (sequelize, DataTypes) {
         youTubeVidId: {
             type: DataTypes.STRING,
             
+        },
+        artworkUrl30: {
+            type: DataTypes.STRING
+        },
+        artworkUrl60: {
+            type: DataTypes.STRING
+        },
+        artworkUrl100: {
+            type: DataTypes.STRING 
         }
+
     });
 
     Track.associate = function (models) {
