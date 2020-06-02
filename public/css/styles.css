@@ -1,0 +1,177 @@
+body {
+    background-color: #1e2020;
+    font-family: 'Mukta', sans-serif;
+}
+
+.jumboBrowse {
+    background-image: url("../images/browseBackground.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .jumboDisplay {
+      color: cornsilk;
+      text-align: right;
+  }
+
+  .jumboLead {
+      color: cornsilk;
+      text-align: right;
+  }
+
+  .btnMargin {
+     margin-bottom: 3px;
+  }
+
+  .btn { 
+      border: none;
+  }
+
+  .adSpace {
+      margin-top: 12px;
+  }
+
+  .browseHeader {
+      color: white;
+  }
+
+  .adMargins {
+      margin-top: 10px;
+  }
+
+  .cardMargins {
+      margin-top: 40px;
+  }
+
+  .hide {
+    display: none;
+}
+
+.creatorSearch {
+    max-width: 400px;
+}
+
+.createHeader {
+    color: white;
+}
+
+.createContent {
+    margin-top: 15px;
+}
+
+.formInputs {
+    Color: cornsilk;
+}
+
+.jumboRow {
+    height: 425px;
+    background-image: url("../images/turntable.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0% 66%;
+}
+
+.homeMain {
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-top: 75px;
+}
+.homeDisplay {
+    margin-top: 30pxs;
+    color: white;
+}
+
+.homeLead {
+    color:white;
+}
+
+.my-4 {
+    background-color: white;
+}
+
+.btnSpace {
+    margin-right: 8px;
+}
+
+.createStyle {
+    margin-top: 20px;
+}
+
+.iconSet {
+    margin: auto;
+}
+
+.rankIconsMinus {
+    color: crimson;
+}
+
+.rankIconsPlus {
+    color: aqua;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+
+.trackCard {
+    background-color: rgb(209, 221, 221);
+    padding: none;
+}
+
+ul#menu li {
+    list-style-type: none;    
+    padding-left: 10px;
+    
+  }
+
+.rankTracksPlus {
+color: rgb(2, 189, 189)
+}
+
+.rankTracksMinus {
+  color: crimson  
+}
+
+.youTubeIcon {
+    color: crimson;
+    float: right;
+}
+
+.temp {
+    margin: auto;
+}
+.playListRow {
+    margin-top: 10px;
+}
+
+.tracks {
+    margin-top: 10px;
+}
+
+.logo {
+    margin-left: 25px;
+}
+
+.counter {
+    text-align: center;
+}
+
+.trackCounter {
+    text-align: center;  
+}
+
+.moodRow2 {
+    margin-top: 6px;
+}
+
+.albumArt {
+    height:60px;
+    width:60px;
+}
+
+#artImg {
+    margin: auto;
+    padding-top: 35px
+}
