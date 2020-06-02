@@ -13,13 +13,16 @@ module.exports = function (sequelize, DataTypes) {
             
         },
         artworkUrl30: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING, 
+            allowNull: true
         },
         artworkUrl60: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: true
         },
         artworkUrl100: {
-            type: DataTypes.STRING 
+            type: DataTypes.STRING,
+            allowNull: true 
         }
 
     });

@@ -28,6 +28,8 @@ module.exports = {
 
     }
 
+    // Convertin Artist Name 
+
     function convertArtistName(artistValue) {
         var wordArray = artistValue.split(' ');
         var newWordArray = [];
