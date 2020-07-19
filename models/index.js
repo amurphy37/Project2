@@ -1,3 +1,5 @@
+// Boilerplate code to allow for us to access our models in our controller.
+
 "use strict";
 
 var fs = require("fs");

@@ -1,3 +1,4 @@
+// Creating our track model to store and update tracks in our database.
 module.exports = function (sequelize, DataTypes) {
     var Track = sequelize.define("Track", {
         // Giving the track model a name of type STRING
@@ -27,6 +28,7 @@ module.exports = function (sequelize, DataTypes) {
 
     });
 
+    // Associating track swith genres, albums and playlist tracks.
     Track.associate = function (models) {
         // Associating track to a genre
         Track.belongsTo(models.Genre, {

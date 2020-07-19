@@ -1,3 +1,4 @@
+// Config.js file to set up the connection to our MySQL database with our three environments: Development, Test and Production 
 module.exports = {
     "development": {
         "username": "root",

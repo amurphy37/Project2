@@ -24,7 +24,7 @@
     <div class="row createStyle">
       <div class="col">
         <h2 class="createHeader">Create New Playlist</h2>
-        {{!-- start form --}}
+        {{!-- Form inputs to create new playlist--}}
         <form class="formSubmit">
           <div class="form-group">
             <label for="exampleFormControlInput1" class="formInputs">Playlist Name</label>
@@ -38,6 +38,7 @@
 
           <div class="form-group">
             <label for="exampleFormControlSelect1" class="formInputs">Choose Your Mood</label>
+            {{!-- Dropdown option to select mood associated with playlist --}}
             <select class="form-control mood" id="mood" required>
               <option>Coffee House</option>
               <option>Party Time</option>
@@ -50,12 +51,14 @@
             </select>
           </div>
           <div class="form-group">
+            {{!-- Text box input to describe playlist --}}
             <label for="exampleFormControlInput1" class="formInputs">Description of Playlist</label>
             <input type="text" id="description" class="form-control description" placeholder="Add a brief description"
               required>
           </div>
           <div id='TextBoxesGroup' class="form-group">
             <div class="input_fields_wrap">
+              {{!-- Artist and song name inputs --}}
               <div class="form-group">
                 <label for="exampleFormControlInput1" class="formInputs">Song Title and Artist Name:</label>
                 <input type="text" class="form-control song1" id="song1" placeholder="Song Title" required>
