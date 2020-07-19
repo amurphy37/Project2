@@ -4,6 +4,8 @@ Communal playlist platform for users to collaborate on playlists, upvote songs b
 
 ![Alt text](./public/images/HomeScreen.png?raw=true "NextTrackUp Landing Page")
 
+**Deployed Application:** (https://nexttrackup.herokuapp.com/)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
