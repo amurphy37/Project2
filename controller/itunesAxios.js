@@ -1,3 +1,6 @@
+// The iTunes controller file is set up to separate the song verification functionality. 
+// User will add a song to a playlist, which will be routed through iTunes as a verifcation process. 
+// If the request comes back with a valid result, the song title and artist will be passed to Youtube
 var axios = require("axios")
 
 module.exports = {
@@ -12,6 +15,8 @@ module.exports = {
 
     var song = []
     var artist = []
+
+    // Function to convert song into valid string for query url
 
     function convertSongName(songValue) {
         // Converting songValue into an array with eaach word as a value. Looping through array to ad "+" in between words to make song name compatible for ajax query
@@ -28,7 +33,7 @@ module.exports = {
 
     }
 
-    // Convertin Artist Name 
+    // Function to convert artist user input into valid string for query url
 
     function convertArtistName(artistValue) {
         var wordArray = artistValue.split(' ');
@@ -50,6 +55,8 @@ module.exports = {
     var iTunesQueryURL = "https://itunes.apple.com/search?term=" + finalArtist + "+" + finalSong + "&entity=musicTrack"
 
     return iTunesQueryURL
+
+    // this moudule returns the valid iTunes query url that we'll then run in our modulizedController file.
 
     }
 }

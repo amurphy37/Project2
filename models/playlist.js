@@ -1,3 +1,4 @@
+// Defining our playlist model to store playlists in our database.
 module.exports = function (sequelize, DataTypes) {
     var Playlist = sequelize.define("Playlist", {
         // Giving the playlist model a name of type STRING
@@ -24,6 +25,8 @@ module.exports = function (sequelize, DataTypes) {
                 defaultValue: 0
             }
         });
+
+        // Creating a many-to-one relationship between playlist and moods. Necessary to associate the two.
 
             Playlist.associate = function (models) {
                 // Associating Playlist with moodID

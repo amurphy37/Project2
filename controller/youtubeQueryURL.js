@@ -1,3 +1,6 @@
+// This file exports a method which is used to call the YouTube Data API to retrieve the relevant video. 
+// If we pass in artist name and song title, the video we'll receive will either be the music video for the songo or a video with the song audio. 
+
 module.exports = {
     youtubeQueryURL: function (verTrackObj) {  
         var artistName = verTrackObj.artistName

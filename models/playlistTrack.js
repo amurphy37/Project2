@@ -1,3 +1,4 @@
+// Creating our model to store playlist tracks as its own table in the database.
 module.exports = function (sequelize, DataTypes) {
     var PlaylistTrack = sequelize.define("PlaylistTrack", {
         // Giving the playlistTrack model a name of type STRING
@@ -12,6 +13,7 @@ module.exports = function (sequelize, DataTypes) {
 
     });
 
+    // Associating playlist tracks with both playlists and tracks.
         PlaylistTrack.associate = function (models) {
             // Associating playlist track with playlist
             PlaylistTrack.belongsTo(models.Playlist, {

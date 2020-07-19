@@ -1,3 +1,4 @@
+{{!-- Adding navbar with routes back to playlist create and browse --}}
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand logo" href="/">
     <img src="images/playlistLogo.png" alt="logo" height="50px" loading="lazy">
@@ -17,8 +18,10 @@
     </ul>
   </div>
 </nav>
+{{!-- Main container which will house all page content --}}
 <div class="container">
   <div class="row">
+    {{!-- Jumbotron to guide users to browse playlists --}}
     <div class="col">
       <div class="jumbotron jumboBrowse">
         <h1 class="jumboText display-4 jumboDisplay">Browse Our Playlists!</h1>
@@ -26,6 +29,7 @@
       </div>
     </div>
   </div>
+  {{!-- Row giving user options to drill down search --}}
   <div class="row">
     <div class="col-3">
       <button type="button" class="btn btn-secondary bg-dark btn-lg btn-block" id="trendingBtn">Top 5 Trending</button>
@@ -41,24 +45,28 @@
     <div class="col-9">
       <div class="browse-content">
         <div id="playlistParent">
-          <div class= id="headers">
+          <div class=id="headers">
             <h3 class="hide browseHeader" id="allHeader">All Playlists</h3>
             <h3 class="top-five browseHeader" id="top-five">Top 5 Trending</h3>
           </div>
+          {{!-- Div for searching by moods. Will be hidden on load, and will move to front dynamically via our borwse.js file --}}
           <div class="hide" id="moods">
             <h3 class="browseHeader">Search by Moods</h3>
             <div class="moodSelectors">
               <div class="moodRow1">
-                <button type="button" class="btn btn-dark moodBtns" id="coffeeBtn" value="Coffee House">Coffee House</button>
+                <button type="button" class="btn btn-dark moodBtns" id="coffeeBtn" value="Coffee House">Coffee
+                  House</button>
                 <button type="button" class="btn btn-dark moodBtns" id="partyBtn" value="Party Time">Party Time</button>
                 <button type="button" class="btn btn-dark moodBtns" id="chillBtn" value="Chill Mode">Chill Mode</button>
                 <button type="button" class="btn btn-dark moodBtns" id="workoutBtn" value="Workout">Workout</button>
               </div>
               <div class="moodRow2">
                 <button type="button" class="btn btn-dark moodBtns" id="dateBtn" value="Date Night">Date Night</button>
-                <button type="button" class="btn btn-dark moodBtns" id="rockBtn" value="I Want to Rock">I Want to Rock</button>
+                <button type="button" class="btn btn-dark moodBtns" id="rockBtn" value="I Want to Rock">I Want to
+                  Rock</button>
                 <button type="button" class="btn btn-dark moodBtns" id="hipHopBtn" value="Hip Hop">Hip Hop</button>
-                <button type="button" class="btn btn-dark moodBtns" id="countryBtn" value="Country Roads">Country Roads</button>
+                <button type="button" class="btn btn-dark moodBtns" id="countryBtn" value="Country Roads">Country
+                  Roads</button>
               </div>
             </div>
             <div class="coffeeHouse hide" id="coffeeHouse">
@@ -72,6 +80,8 @@
             <div class="countryRoad hide" id="countryRoad"></div>
           </div>
 
+          {{!-- Search by creators section. Hidden on load, will be brought to front via browse.js file --}}
+
           <div class="hide" id="creators">
             <h3 class="browseHeader">Search by Creators</h3>
             <div class="input-group mb-3 creatorSearch">
@@ -81,16 +91,17 @@
                 <button class="btn btn-info" type="button" id="button-addon2">Search</button>
               </div>
             </div>
-          
+
           </div>
+          {{!-- All content below will be playlist and playlist track view --}}
           <div class="container" id="playlistContainer">
-            {{#each playlists}}
             <div class="row playListRow">
               <!-- ADD each playlist -->
               <div class=col-1></div>
-              
-        
+
               <div class=col-10>
+                {{!-- Handlebars will loop through playlists array that is passed in and render view content for each playlist. --}}
+                {{#each playlists}}
                 <div class="card mb-3" style="max-width: 100%;">
                   <div class="row no-gutters">
                     <div class="col-1 iconSet">
@@ -108,126 +119,63 @@
                         <h5 class="card-title">Playlist Name: {{this.name}} </h5>
                         <ul>
                           <li>
-                            Created by: {{createdBy}}
+                            Created by: {{this.createdBy}}
                           </li>
                           <li>
-                            Mood: {{Mood.dataValues.name}}
+                            Mood: {{this.moodName}}
                           </li>
                           <li>
-                            Description: {{description}}
+                            Description: {{this.description}}
                           </li>
                         </ul>
-                        <button class="btn btn-secondary showTracksBtn" value="{{this.id}}" id="showTracksBtn">See Track List +</button>
-                        <button class="btn btn-secondary hide hideTracksBtn" value="{{this.id}}" id="hideTracksBtn">Hide Track List -</button>
-                        <button class="btn btn-info addNewTrackBtn" value="{{this.id}}" id="addNewTrackBtn">Add New Track to Playlist</button>
+                        <button class="btn btn-secondary showTracksBtn" value="{{this.id}}" id="showTracksBtn">See Track
+                          List +</button>
+                        <button class="btn btn-secondary hide hideTracksBtn" value="{{this.id}}" id="hideTracksBtn">Hide
+                          Track List -</button>
+                        <button class="btn btn-info addNewTrackBtn" value="{{this.id}}" id="addNewTrackBtn">Add New
+                          Track to Playlist</button>
                       </div>
                     </div>
                   </div>
                 </div>
+                {{/each}}
               </div>
-              
-              <div class=col-1></div>
-            </div>
-            
-            <div class="row hide" id="newTrackForm">
-              <div class=col-1></div>
-              <div class=col-10>
-                <div id='TextBoxesGroup' class="form-group">
-                  <div class="input_fields_wrap">
-                    <div class="form-group">
-                      <label for="exampleFormControlInput1" class="formInputs">Song Title and Artist Name:</label>
-                      <input type="text" class="form-control"  placeholder="Song Title"
-                        required>
-                      <input type="text" class="form-control" placeholder="Artist Name"
-                        required>
-                    </div>
-                    <button class="add_field_button">Add Another Song</button>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-info">Add Songs to Playlist</button>
-                <button type="submit" class="btn btn-danger" id="returnPlaylistBtn">Don't Make Changes</button>
-              </div>
-              <div class=col-1></div>
-            </div>
-            <div class="row hide tracks" id="trackList">
-              <!-- ADD each track -->
-            {{#each playlistTracks}}
-              <div class=col-1></div>
-              <div class=col-10>
-                <div class="card mb-3 trackCard" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-1 iconSet">
-                      <a href="#"><i class="fa fa-arrow-circle-up fa-2x rankTracksPlus" id="trackPlusBtn"></i></a>
-                      <div class="trackCounter" id="trackCounter">
-                        <!-- ADD track count -->
-                      </div>
-                      <a href="#"><i class="fa fa-arrow-circle-down fa-2x rankTracksMinus" id="trackMinusBtn"></i></a>
-                    </div>
-                    <div class="col-1">
-                      <div class="albumArt">
-                        <!-- ADD insert 60px album art url here -->
-                        <img id="artImg" src={{this.art}} alt="song artwork">
-                      </div>
-                    </div>
-                    <div class="col-md-10">
-                      <div class="card-body info" >
-                        <ul id="menu">
-                          <!-- ADD handlebars for track items -->
-                          <li>
-                            Track Name: {{this.track}}
-                          </li>
-                          <li>
-                            Artist Name: {{this.artist}}
-                          </li>
-                          <li>
-                            Album: {{this.album}}
-                          </li>
-                          <li>
-                            Genre: {{this.genre}}
-                          </li>
 
-                          <li>
-                            <a href="#"><i class="fab fa-youtube fa-2x youTubeIcon" id="youTubeBtn"></i></a>
-                          </li>
-                        </ul>
+              {{!-- New track form to add to playlist. Hidden on load, will be brought to forefront via code in browse.js --}}
+              <div class="row hide" id="newTrackForm">
+                <div class=col-1></div>
+                <div class=col-10>
+                  <div id='TextBoxesGroup' class="form-group">
+                    <div class="input_fields_wrap">
+                      <div class="form-group">
+                        <label for="exampleFormControlInput1" class="formInputs">Song Title and Artist Name:</label>
+                        <input type="text" class="form-control" placeholder="Song Title" required>
+                        <input type="text" class="form-control" placeholder="Artist Name" required>
                       </div>
+                      <button class="add_field_button">Add Another Song</button>
                     </div>
                   </div>
+                  <button type="submit" class="btn btn-info">Add Songs to Playlist</button>
+                  <button type="submit" class="btn btn-danger" id="returnPlaylistBtn">Don't Make Changes</button>
+                </div>
+                <div class=col-1></div>
+              </div>
+              <div class="row hide tracks" id="trackList">
+               
+                {{!-- end each playlist and playlist tracks --}}
+              </div>
+            </div>
+            <div class="hide" id="creators">
+              <h3 class="browseHeader">Search by Creators</h3>
+              <div class="input-group mb-3 creatorSearch">
+                <input type="text" class="form-control" placeholder="Creator's Name" aria-label="Recipient's username"
+                  aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-info" type="button" id="button-addon2">Search</button>
                 </div>
               </div>
-              <div class=col-1></div>
-            </div>
-            <div class="row hide" id="youTubePlayer">
-              <div class="col-1"></div>
-              <div class="col-10">
-                <div class="videoSection" id="player"></div>
-                <iframe id="ytplayer" type="text/html" width="640" height="360"
-                  src="https://www.youtube.com/embed/{{this.youtubeId}}?autoplay=1&origin=http://example.com" frameborder="0"></iframe>
-                <div>
-                  <button class="btn btn-danger btn-sm" id="closeYouTubeBtn">Close Window</button>
-                </div>
-              </div>
-              <div class="col-1"></div>
-            </div>
-            {{/each}}
-          {{/each}}
 
-          {{!-- end each playlist and playlist tracks --}}
-          </div>
-
-        </div>
-      </div>
-      <div class="hide" id="creators">
-        <h3 class="browseHeader">Search by Creators</h3>
-        <div class="input-group mb-3 creatorSearch">
-          <input type="text" class="form-control" placeholder="Creator's Name" aria-label="Recipient's username"
-            aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-info" type="button" id="button-addon2">Search</button>
+            </div>
           </div>
         </div>
-
       </div>
-    </div>
-  </div>
-</div>
