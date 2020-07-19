@@ -2,6 +2,8 @@
 
 Communal playlist platform for users to collaborate on playlists, upvote songs based on fit with a mood and listen to playlist tracks on the go.
 
+![Alt text](./public/images/HomeScreen.png?raw=true "NextTrackUp Landing Page")
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -24,16 +26,16 @@ There are two ways you can get the code:
 The recommended way to get NextTrackUp is to use git to directly clone the NextTrackUp repository:
 
 ```bash
-$ git clone [PROJECT CLONE URL] NextTrackUp
+$ git clone https://github.com/amurphy37/Project2.git NextTrackUp
 ```
 
-This will clone the latest version of the [PROJECT NAME] repository to a **[PROJECT NAME]** folder.
+This will clone the latest version of the NextTrackUp repository to a **NextTrackUp** folder.
 
 ### Downloading The Repository Zip File
-Another way to use the [PROJECT NAME] code is to download a zip copy from the [master branch on GitHub](https://github.com/meanjs/mean/archive/master.zip). You can also do this using the `wget` command:
+Another way to use the NextTrackUp code is to download a zip copy from the [master branch on GitHub](https://github.com/amurphy37/Project2/archive/master.zip). You can also do this using the `wget` command:
 
 ```bash
-$ wget https://github.com/meanjs/mean/archive/master.zip -O meanjs.zip; unzip meanjs.zip; rm meanjs.zip
+$ wget https://github.com/amurphy37/Project2/archive/master.zip -O nexttrackup.zip; unzip nexttrackup.zip; rm nexttrackup.zip
 ```
 
 Don't forget to rename after your project name.
@@ -62,7 +64,7 @@ Run the application using npm:
 $ npm start
 ```
 
-Your application should run on port 3000 with the *development* environment configuration, so in your browser just go to [http://localhost:3000](http://localhost:3000)
+Your application should run on port 8080 with the *development* environment configuration, so in your browser just go to [http://localhost:8080](http://localhost:8080)
 
 ## Running the tests
 
