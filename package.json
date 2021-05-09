@@ -21,6 +21,6 @@
     },
     "devDependencies": {
         "nodemon": "^2.0.4",
-        "handlebars": "4.7.6"
+        "handlebars": "4.7.7"
     }
 }
